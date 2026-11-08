@@ -2,99 +2,844 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Mihrap - Ezan Vakitleri & Kıble</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mihrap – Ezan Vakitleri, Kıble Pusulası & Kur'an-ı Kerim</title>
+    <meta name="description" content="Mihrap ile Diyanet uyumlu ezan vakitleri, hassas kıble pusulası, sesli Kur'an-ı Kerim, zikirmatik ve dini günler parmaklarınızın ucunda.">
+    <link rel="icon" type="image/png" href="assets/app-icon.png">
+    
+    <!-- Google Fonts & Lucide Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
+        :root {
+            --bg-dark: #080c14;
+            --bg-card: rgba(18, 24, 38, 0.7);
+            --bg-card-hover: rgba(26, 35, 54, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-accent: rgba(56, 189, 248, 0.3);
+            --primary: #10b981;
+            --primary-glow: rgba(16, 185, 129, 0.25);
+            --secondary: #38bdf8;
+            --secondary-glow: rgba(56, 189, 248, 0.2);
+            --gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #0b0f19;
-            color: #f1f5f9;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 65%, rgba(56, 189, 248, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 50% 90%, rgba(245, 158, 11, 0.06) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Ambient Glow Grid */
+        .ambient-grid {
+            position: fixed;
+            inset: 0;
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Nav Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 24px;
+            background: rgba(8, 12, 20, 0.8);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .brand img {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .brand span {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #fff 40%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .lang-switch {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid var(--border-glass);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            padding: 130px 24px 80px;
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.12);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); box-shadow: 0 0 20px var(--primary-glow); }
+        }
+
+        .hero h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--secondary) 20%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            max-width: 540px;
+        }
+
+        .cta-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-apple {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: #fff;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+            transition: all 0.25s ease;
+        }
+
+        .btn-apple:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-apple i {
+            font-size: 1.6rem;
+        }
+
+        .btn-apple-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            line-height: 1.15;
+        }
+
+        .btn-apple-text small {
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 14px;
+            color: var(--text-main);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Phone Mockup Showcase */
+        .hero-mockup-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-glow {
+            position: absolute;
+            width: 360px;
+            height: 520px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, var(--secondary-glow) 60%, transparent 80%);
+            filter: blur(50px);
+            z-index: 1;
+            border-radius: 50%;
+        }
+
+        .phone-frame {
+            position: relative;
+            z-index: 2;
+            width: 320px;
+            height: 640px;
+            background: #0f172a;
+            border: 8px solid #1e293b;
+            border-radius: 46px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), inset 0 0 2px rgba(255, 255, 255, 0.4);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 18px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 20px;
+            background: #000;
+            border-radius: 10px;
+            z-index: 10;
+        }
+
+        /* Mockup App UI inside Phone */
+        .mock-header {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mock-city {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .mock-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .mock-next-card {
+            margin-top: 24px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(6, 78, 59, 0.4));
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
+        .mock-next-card small {
+            color: #6ee7b7;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        .mock-next-time {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 4px 0;
+            color: #fff;
+        }
+        .mock-next-remain {
+            font-size: 0.85rem;
+            color: #a7f3d0;
+        }
+
+        .mock-times-grid {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .mock-time-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.85rem;
+        }
+        .mock-time-row.active {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.4);
+            font-weight: 700;
+            color: #38bdf8;
+        }
+
+        /* Floating Widgets on Phone */
+        .floating-badge-1 {
+            position: absolute;
+            bottom: 40px;
+            left: -35px;
+            z-index: 5;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border-accent);
+            padding: 12px 18px;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: float 5s ease-in-out infinite 1s;
+        }
+        .floating-badge-1 i {
+            color: var(--secondary);
+            font-size: 1.5rem;
+        }
+        .floating-badge-1 div {
+            display: flex;
+            flex-direction: column;
+        }
+        .floating-badge-1 strong {
+            font-size: 0.85rem;
+        }
+        .floating-badge-1 span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 24px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            padding: 32px;
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            background: var(--bg-card-hover);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            margin-bottom: 22px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            color: var(--primary);
         }
-        .container {
-            max-width: 600px;
-            margin: 20px;
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        h1 {
-            color: #38bdf8;
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+
+        .feature-card:nth-child(2) .feature-icon { color: var(--secondary); }
+        .feature-card:nth-child(3) .feature-icon { color: var(--gold); }
+        .feature-card:nth-child(4) .feature-icon { color: #ec4899; }
+        .feature-card:nth-child(5) .feature-icon { color: #8b5cf6; }
+        .feature-card:nth-child(6) .feature-icon { color: #10b981; }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
             font-weight: 700;
+            margin-bottom: 12px;
         }
-        p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-            margin-bottom: 25px;
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 30px;
+
+        /* Banner CTA */
+        .cta-banner {
+            max-width: 1100px;
+            margin: 40px auto 100px;
+            padding: 60px 40px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(56, 189, 248, 0.1));
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s ease;
+
+        .cta-banner h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 16px;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+
+        .cta-banner p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto 32px;
         }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #334155;
-            color: #cbd5e1;
-        }
-        .btn-outline:hover {
-            background: #1e293b;
-            border-color: #475569;
-        }
+
+        /* Footer */
         footer {
-            margin-top: 40px;
-            font-size: 0.85rem;
-            color: #64748b;
+            border-top: 1px solid var(--border-glass);
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: rgba(8, 12, 20, 0.9);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 110px;
+                gap: 50px;
+            }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { margin: 0 auto 30px; }
+            .cta-group { justify-content: center; }
+            .floating-badge-1 { display: none; }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>MİHRAP</h1>
-    <p>Doğru Ezan Vakitleri, Kıble Pusulası ve Kur'an-ı Kerim</p>
-    
-    <div class="links">
-        <a class="btn" href="https://apps.apple.com/tr/app/mihrap-ezan-vakitleri/id6757357618" target="_blank">
-            App Store'da Görüntüle
-        </a>
-        <a class="btn btn-outline" href="gizlilik-politikasi.html">
-            Gizlilik Politikası (TR)
-        </a>
-        <a class="btn btn-outline" href="privacy-policy.html">
-            Privacy Policy (EN)
-        </a>
-    </div>
 
+    <div class="ambient-grid"></div>
+
+    <!-- Navigation Header -->
+    <header>
+        <a href="#" class="brand">
+            <img src="assets/app-icon.png" alt="Mihrap Logo">
+            <span>MİHRAP</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#ozellikler" data-tr="Özellikler" data-en="Features">Özellikler</a>
+            <a href="gizlilik-politikasi.html" id="privacyLink" data-tr="Gizlilik" data-en="Privacy">Gizlilik</a>
+            
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+                <button class="lang-btn" onclick="setLang('en')">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="badge">
+                    <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
+                    <span data-tr="T.C. Diyanet İşleri Uyumlu" data-en="Official Prayer Times Compliant">T.C. Diyanet İşleri Uyumlu</span>
+                </div>
+                
+                <h1 data-tr="Huzur Veren <span>İbadet Rehberiniz</span>" data-en="Your Peaceful <span>Worship Companion</span>">
+                    Huzur Veren <span>İbadet Rehberiniz</span>
+                </h1>
+                
+                <p data-tr="Mihrap, Diyanet İşleri Başkanlığı'nın en hassas namaz vakitlerini, sesli Kur'an-ı Kerim tilavetlerini, zikirmatik ve 3D Kıble pusulasını modern ve sade bir deneyimle sunar."
+                   data-en="Mihrap brings accurate prayer times, audio Holy Quran recitations, digital tasbih, and precision 3D Qibla compass into a sleek, peaceful modern experience.">
+                    Mihrap, Diyanet İşleri Başkanlığı'nın en hassas namaz vakitlerini, sesli Kur'an-ı Kerim tilavetlerini, zikirmatik ve 3D Kıble pusulasını modern ve sade bir deneyimle sunar.
+                </p>
+
+                <div class="cta-group">
+                    <a href="https://apps.apple.com/tr/app/mihrap-ezan-vakitleri/id6757357618" target="_blank" class="btn-apple">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.65 1.35-.58.65-1.08 1.72-.94 2.74 1.01.08 2.05-.49 2.67-1.24Z"/>
+                        </svg>
+                        <div class="btn-apple-text">
+                            <small data-tr="Hemen İndirin" data-en="Download on the">Hemen İndirin</small>
+                            <span>App Store</span>
+                        </div>
+                    </a>
+
+                    <a href="#ozellikler" class="btn-ghost">
+                        <span data-tr="Özellikleri Keşfet" data-en="Explore Features">Özellikleri Keşfet</span>
+                        <i data-lucide="chevron-right" style="width: 18px; height: 18px;"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Phone Showcase Mockup -->
+            <div class="hero-mockup-wrapper">
+                <div class="phone-glow"></div>
+                
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    
+                    <div class="mock-header">
+                        <div>
+                            <div class="mock-city">İstanbul, Türkiye</div>
+                            <div class="mock-date">17 Ramazan 1447</div>
+                        </div>
+                        <i data-lucide="bell" style="width: 20px; height: 20px; color: var(--text-muted);"></i>
+                    </div>
+
+                    <div class="mock-next-card">
+                        <small data-tr="SIRADAKİ VAKİT: AKŞAM" data-en="NEXT PRAYER: MAGHRIB">SIRADAKİ VAKİT: AKŞAM</small>
+                        <div class="mock-next-time">19:24</div>
+                        <div class="mock-next-remain" data-tr="İftara kalan: 01:42:15" data-en="Time remaining: 01:42:15">İftara kalan: 01:42:15</div>
+                    </div>
+
+                    <div class="mock-times-grid">
+                        <div class="mock-time-row">
+                            <span data-tr="İmsak" data-en="Fajr">İmsak</span>
+                            <span>05:14</span>
+                        </div>
+                        <div class="mock-time-row">
+                            <span data-tr="Güneş" data-en="Sunrise">Güneş</span>
+                            <span>06:42</span>
+                        </div>
+                        <div class="mock-time-row">
+                            <span data-tr="Öğle" data-en="Dhuhr">Öğle</span>
+                            <span>13:08</span>
+                        </div>
+                        <div class="mock-time-row">
+                            <span data-tr="İkindi" data-en="Asr">İkindi</span>
+                            <span>16:32</span>
+                        </div>
+                        <div class="mock-time-row active">
+                            <span data-tr="Akşam" data-en="Maghrib">Akşam (İftar)</span>
+                            <span>19:24</span>
+                        </div>
+                        <div class="mock-time-row">
+                            <span data-tr="Yatsı" data-en="Isha">Yatsı</span>
+                            <span>20:46</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="floating-badge-1">
+                    <i data-lucide="compass"></i>
+                    <div>
+                        <strong data-tr="3D Kıble Pusulası" data-en="3D Qibla Compass">3D Kıble Pusulası</strong>
+                        <span data-tr="147° Hassas Yön" data-en="147° Exact Heading">147° Hassas Yön</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="features-section" id="ozellikler">
+            <div class="section-header">
+                <h2 data-tr="İbadet Hayatınızı Kolaylaştıran Özellikler" data-en="Features Designed for Peace of Mind">
+                    İbadet Hayatınızı Kolaylaştıran Özellikler
+                </h2>
+                <p data-tr="Modern tasarım, reklamsız akıcı arayüz ve dini hassasiyetlerle geliştirildi."
+                   data-en="Crafted with minimalist design, distraction-free layout, and spiritual precision.">
+                    Modern tasarım, reklamsız akıcı arayüz ve dini hassasiyetlerle geliştirildi.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <!-- 1. Vakitler -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="clock" style="width: 28px; height: 28px;"></i>
+                    </div>
+                    <h3 data-tr="Diyanet Uyumlu Vakitler" data-en="Official Prayer Times">Diyanet Uyumlu Vakitler</h3>
+                    <p data-tr="Konumunuza göre milisaniye hassasiyetinde hesaplanan doğru vakitler. İnternetsiz çalışma ve 30 günlük hafıza desteği."
+                       data-en="Precise prayer times based on your location. Works offline with 30-day cached schedule.">
+                        Konumunuza göre milisaniye hassasiyetinde hesaplanan doğru vakitler. İnternetsiz çalışma ve 30 günlük hafıza desteği.
+                    </p>
+                </div>
+
+                <!-- 2. Ezan & Bildirim -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="volume-2" style="width: 28px; height: 28px;"></i>
+                    </div>
+                    <h3 data-tr="Özel Ezan Bildirimleri" data-en="Custom Adhan Alerts">Özel Ezan Bildirimleri</h3>
+                    <p data-tr="Farklı makamlarda ezan sesleri ve vakit öncesi hatırlatmalar ile hiçbir ibadeti kaçırmayın."
+                       data-en="Never miss a prayer with authentic Adhan audio alerts and configurable pre-prayer reminders.">
+                        Farklı makamlarda ezan sesleri ve vakit öncesi hatırlatmalar ile hiçbir ibadeti kaçırmayın.
+                    </p>
+                </div>
+
+                <!-- 3. Kıble -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="compass" style="width: 28px; height: 28px;"></i>
+                    </div>
+                    <h3 data-tr="Hassas Kıble Pusulası" data-en="Accurate Qibla Compass">Hassas Kıble Pusulası</h3>
+                    <p data-tr="Manyetik sensör desteğiyle dünyanın neresinde olursanız olun Kabe yönünü kolayca ve şaşmadan bulun."
+                       data-en="Find the exact Kaaba direction worldwide with gyro and compass sensor calibration.">
+                        Manyetik sensör desteğiyle dünyanın neresinde olursanız olun Kabe yönünü kolayca ve şaşmadan bulun.
+                    </p>
+                </div>
+
+                <!-- 4. Kur'an-ı Kerim -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="book-open" style="width: 28px; height: 28px;"></i>
+                    </div>
+                    <h3 data-tr="Kur'an-ı Kerim & Sesli Tilavet" data-en="Holy Quran & Audio">Kur'an-ı Kerim & Sesli Tilavet</h3>
+                    <p data-tr="Arapça metin, Türkçe meal ve dünyaca ünlü kârilerden ayet ayet sesli tilavet dinleme imkanı."
+                       data-en="Full Quran with translation, Arabic calligraphy, transliteration, and verse-by-verse recitations.">
+                        Arapça metin, Türkçe meal ve dünyaca ünlü kârilerden ayet ayet sesli tilavet dinleme imkanı.
+                    </p>
+                </div>
+
+                <!-- 5. Zikirmatik & Hatim -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="sparkle" style="width: 28px; height: 28px;"></i>
+                    </div>
+                    <h3 data-tr="Akıllı Zikirmatik & Hatim" data-en="Smart Tasbih & Khatm">Akıllı Zikirmatik & Hatim</h3>
+                    <p data-tr="Titreşimli gerçekçi zikir sayacı, Esmaü'l Hüsna, günlük dualar ve toplulukla online hatim paylaşımı."
+                       data-en="Realistic haptic feedback counter, 99 Names of Allah, daily supplications and community Khatm.">
+                        Titreşimli gerçekçi zikir sayacı, Esmaü'l Hüsna, günlük dualar ve toplulukla online hatim paylaşımı.
+                    </p>
+                </div>
+
+                <!-- 6. Widget & Canlı Yayın -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="radio" style="width: 28px; height: 28px;"></i>
+                    </div>
+                    <h3 data-tr="Diyanet Radyo & İmsakiye" data-en="Live Radio & Ramadan">Diyanet Radyo & İmsakiye</h3>
+                    <p data-tr="Diyanet Kur'an Radyosu canlı yayını ve Ramazan ayı boyunca sahur/iftar vakitlerini gösteren tam imsakiye."
+                       data-en="Live 24/7 Diyanet Quran Radio streaming and full Ramadan timetable with countdown timers.">
+                        Diyanet Kur'an Radyosu canlı yayını ve Ramazan ayı boyunca sahur/iftar vakitlerini gösteren tam imsakiye.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Banner -->
+        <section class="cta-banner">
+            <h2 data-tr="Mihrap'ı Bugün İndirin" data-en="Download Mihrap Today">Mihrap'ı Bugün İndirin</h2>
+            <p data-tr="İbadetlerinizi kolaylaştıran, göz yormayan ve tamamen ücretsiz deneyimi hemen yaşayın."
+               data-en="Experience a peaceful, ad-free and distraction-free Islamic app crafted for daily worship.">
+                İbadetlerinizi kolaylaştıran, göz yormayan ve tamamen ücretsiz deneyimi hemen yaşayın.
+            </p>
+            <a href="https://apps.apple.com/tr/app/mihrap-ezan-vakitleri/id6757357618" target="_blank" class="btn-apple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.65 1.35-.58.65-1.08 1.72-.94 2.74 1.01.08 2.05-.49 2.67-1.24Z"/>
+                </svg>
+                <div class="btn-apple-text">
+                    <small data-tr="iOS için İndir" data-en="Download for iOS">iOS için İndir</small>
+                    <span>App Store</span>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
     <footer>
+        <div class="footer-links">
+            <a href="gizlilik-politikasi.html" id="footerPrivacyLink" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Gizlilik Politikası</a>
+            <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" data-tr="Kullanım Koşulları (EULA)" data-en="Terms of Use (EULA)">Kullanım Koşulları (EULA)</a>
+            <a href="mailto:support@mihrapapp.github.io" data-tr="İletişim" data-en="Contact">İletişim</a>
+        </div>
         <p>© 2026 Mihrap. Tüm hakları saklıdır.</p>
     </footer>
-</div>
+
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // Language Switcher Function
+        function setLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+            });
+
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                const text = el.getAttribute('data-' + lang);
+                if (text) {
+                    if (text.includes('<')) {
+                        el.innerHTML = text;
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+
+            // Update privacy policy links
+            const privacyLink = document.getElementById('privacyLink');
+            const footerPrivacyLink = document.getElementById('footerPrivacyLink');
+            if (lang === 'en') {
+                privacyLink.href = 'privacy-policy.html';
+                footerPrivacyLink.href = 'privacy-policy.html';
+            } else {
+                privacyLink.href = 'gizlilik-politikasi.html';
+                footerPrivacyLink.href = 'gizlilik-politikasi.html';
+            }
+        }
+    </script>
 </body>
 </html>
