@@ -10,7 +10,7 @@
     <!-- Google Fonts & Lucide Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -560,6 +560,54 @@
             color: var(--text-main);
         }
 
+
+        /* RTL & Arabic Support */
+        [dir="rtl"] {
+            font-family: 'Cairo', 'Plus Jakarta Sans', -apple-system, sans-serif;
+            text-align: right;
+        }
+
+        [dir="rtl"] * {
+            font-family: 'Cairo', 'Plus Jakarta Sans', -apple-system, sans-serif;
+        }
+
+        [dir="rtl"] .hero {
+            direction: rtl;
+        }
+
+        [dir="rtl"] .btn-ghost i {
+            transform: rotate(180deg);
+        }
+
+        [dir="rtl"] .btn-apple-text {
+            text-align: right;
+        }
+
+        [dir="rtl"] .floating-badge-1 {
+            left: auto;
+            right: -35px;
+        }
+
+        [dir="rtl"] .mock-header {
+            direction: rtl;
+        }
+
+        [dir="rtl"] .section-header {
+            text-align: center;
+        }
+
+        [dir="rtl"] .feature-card {
+            text-align: right;
+        }
+
+        [dir="rtl"] .cta-banner {
+            text-align: center;
+        }
+
+        [dir="rtl"] footer {
+            text-align: center;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 900px) {
             .hero {
@@ -572,6 +620,7 @@
             .hero p { margin: 0 auto 30px; }
             .cta-group { justify-content: center; }
             .floating-badge-1 { display: none; }
+            [dir="rtl"] .hero { text-align: center; }
         }
     </style>
 </head>
@@ -583,16 +632,17 @@
     <header>
         <a href="#" class="brand">
             <img src="assets/app-icon.png" alt="Mihrap Logo">
-            <span>MİHRAP</span>
+            <span data-tr="MİHRAP" data-en="MIHRAP" data-ar="محراب">MİHRAP</span>
         </a>
 
         <div class="nav-links">
-            <a href="#ozellikler" data-tr="Özellikler" data-en="Features">Özellikler</a>
-            <a href="gizlilik-politikasi.html" id="privacyLink" data-tr="Gizlilik" data-en="Privacy">Gizlilik</a>
+            <a href="#ozellikler" data-tr="Özellikler" data-en="Features" data-ar="المميزات">Özellikler</a>
+            <a href="gizlilik-politikasi.html" id="privacyLink" data-tr="Gizlilik" data-en="Privacy" data-ar="الخصوصية">Gizlilik</a>
             
             <div class="lang-switch">
                 <button class="lang-btn active" onclick="setLang('tr')">TR</button>
                 <button class="lang-btn" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" onclick="setLang('ar')">AR</button>
             </div>
         </div>
     </header>
@@ -603,15 +653,16 @@
             <div class="hero-content">
                 <div class="badge">
                     <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
-                    <span data-tr="T.C. Diyanet İşleri Uyumlu" data-en="Official Prayer Times Compliant">T.C. Diyanet İşleri Uyumlu</span>
+                    <span data-tr="T.C. Diyanet İşleri Uyumlu" data-en="Official Prayer Times Compliant" data-ar="أوقات صلاة دقيقة ومعتمدة">T.C. Diyanet İşleri Uyumlu</span>
                 </div>
                 
-                <h1 data-tr="Huzur Veren <span>İbadet Rehberiniz</span>" data-en="Your Peaceful <span>Worship Companion</span>">
+                <h1 data-tr="Huzur Veren <span>İbadet Rehberiniz</span>" data-en="Your Peaceful <span>Worship Companion</span>" data-ar="رفيقكم الهادئ <span>في العبادة</span>">
                     Huzur Veren <span>İbadet Rehberiniz</span>
                 </h1>
                 
                 <p data-tr="Mihrap, Diyanet İşleri Başkanlığı'nın en hassas namaz vakitlerini, sesli Kur'an-ı Kerim tilavetlerini, zikirmatik ve 3D Kıble pusulasını modern ve sade bir deneyimle sunar."
-                   data-en="Mihrap brings accurate prayer times, audio Holy Quran recitations, digital tasbih, and precision 3D Qibla compass into a sleek, peaceful modern experience.">
+                   data-en="Mihrap brings accurate prayer times, audio Holy Quran recitations, digital tasbih, and precision 3D Qibla compass into a sleek, peaceful modern experience."
+                   data-ar="يجمع محراب بين أوقات الصلاة الدقيقة، وتلاوات القرآن الكريم العذبة، والمسبحة الإلكترونية، وبوصلة القبلة ثلاثية الأبعاد بتصميم عصري وأنيق.">
                     Mihrap, Diyanet İşleri Başkanlığı'nın en hassas namaz vakitlerini, sesli Kur'an-ı Kerim tilavetlerini, zikirmatik ve 3D Kıble pusulasını modern ve sade bir deneyimle sunar.
                 </p>
 
@@ -621,13 +672,13 @@
                             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.65 1.35-.58.65-1.08 1.72-.94 2.74 1.01.08 2.05-.49 2.67-1.24Z"/>
                         </svg>
                         <div class="btn-apple-text">
-                            <small data-tr="Hemen İndirin" data-en="Download on the">Hemen İndirin</small>
+                            <small data-tr="Hemen İndirin" data-en="Download on the" data-ar="حمل الآن من">Hemen İndirin</small>
                             <span>App Store</span>
                         </div>
                     </a>
 
                     <a href="#ozellikler" class="btn-ghost">
-                        <span data-tr="Özellikleri Keşfet" data-en="Explore Features">Özellikleri Keşfet</span>
+                        <span data-tr="Özellikleri Keşfet" data-en="Explore Features" data-ar="استكشف المميزات">Özellikleri Keşfet</span>
                         <i data-lucide="chevron-right" style="width: 18px; height: 18px;"></i>
                     </a>
                 </div>
@@ -642,41 +693,41 @@
                     
                     <div class="mock-header">
                         <div>
-                            <div class="mock-city">İstanbul, Türkiye</div>
-                            <div class="mock-date">17 Ramazan 1447</div>
+                            <div class="mock-city" data-tr="İstanbul, Türkiye" data-en="Istanbul, Turkey" data-ar="إسطنبول، تركيا">İstanbul, Türkiye</div>
+                            <div class="mock-date" data-tr="17 Ramazan 1447" data-en="17 Ramadan 1447" data-ar="١٧ رمضان ١٤٤٧">17 Ramazan 1447</div>
                         </div>
                         <i data-lucide="bell" style="width: 20px; height: 20px; color: var(--text-muted);"></i>
                     </div>
 
                     <div class="mock-next-card">
-                        <small data-tr="SIRADAKİ VAKİT: AKŞAM" data-en="NEXT PRAYER: MAGHRIB">SIRADAKİ VAKİT: AKŞAM</small>
+                        <small data-tr="SIRADAKİ VAKİT: AKŞAM" data-en="NEXT PRAYER: MAGHRIB" data-ar="الصلاة القادمة: المغرب">SIRADAKİ VAKİT: AKŞAM</small>
                         <div class="mock-next-time">19:24</div>
-                        <div class="mock-next-remain" data-tr="İftara kalan: 01:42:15" data-en="Time remaining: 01:42:15">İftara kalan: 01:42:15</div>
+                        <div class="mock-next-remain" data-tr="İftara kalan: 01:42:15" data-en="Time remaining: 01:42:15" data-ar="الوقت المتبقي للإفطار: 01:42:15">İftara kalan: 01:42:15</div>
                     </div>
 
                     <div class="mock-times-grid">
                         <div class="mock-time-row">
-                            <span data-tr="İmsak" data-en="Fajr">İmsak</span>
+                            <span data-tr="İmsak" data-en="Fajr" data-ar="الفجر">İmsak</span>
                             <span>05:14</span>
                         </div>
                         <div class="mock-time-row">
-                            <span data-tr="Güneş" data-en="Sunrise">Güneş</span>
+                            <span data-tr="Güneş" data-en="Sunrise" data-ar="الشروق">Güneş</span>
                             <span>06:42</span>
                         </div>
                         <div class="mock-time-row">
-                            <span data-tr="Öğle" data-en="Dhuhr">Öğle</span>
+                            <span data-tr="Öğle" data-en="Dhuhr" data-ar="الظهر">Öğle</span>
                             <span>13:08</span>
                         </div>
                         <div class="mock-time-row">
-                            <span data-tr="İkindi" data-en="Asr">İkindi</span>
+                            <span data-tr="İkindi" data-en="Asr" data-ar="العصر">İkindi</span>
                             <span>16:32</span>
                         </div>
                         <div class="mock-time-row active">
-                            <span data-tr="Akşam" data-en="Maghrib">Akşam (İftar)</span>
+                            <span data-tr="Akşam (İftar)" data-en="Maghrib (Iftar)" data-ar="المغرب (الإفطار)">Akşam (İftar)</span>
                             <span>19:24</span>
                         </div>
                         <div class="mock-time-row">
-                            <span data-tr="Yatsı" data-en="Isha">Yatsı</span>
+                            <span data-tr="Yatsı" data-en="Isha" data-ar="العشاء">Yatsı</span>
                             <span>20:46</span>
                         </div>
                     </div>
@@ -685,8 +736,8 @@
                 <div class="floating-badge-1">
                     <i data-lucide="compass"></i>
                     <div>
-                        <strong data-tr="3D Kıble Pusulası" data-en="3D Qibla Compass">3D Kıble Pusulası</strong>
-                        <span data-tr="147° Hassas Yön" data-en="147° Exact Heading">147° Hassas Yön</span>
+                        <strong data-tr="3D Kıble Pusulası" data-en="3D Qibla Compass" data-ar="بوصلة القبلة 3D">3D Kıble Pusulası</strong>
+                        <span data-tr="147° Hassas Yön" data-en="147° Exact Heading" data-ar="147° اتجاه دقيق">147° Hassas Yön</span>
                     </div>
                 </div>
             </div>
@@ -695,11 +746,12 @@
         <!-- Features Grid -->
         <section class="features-section" id="ozellikler">
             <div class="section-header">
-                <h2 data-tr="İbadet Hayatınızı Kolaylaştıran Özellikler" data-en="Features Designed for Peace of Mind">
+                <h2 data-tr="İbadet Hayatınızı Kolaylaştıran Özellikler" data-en="Features Designed for Peace of Mind" data-ar="مميزات صُممت لتيسير عباداتكم">
                     İbadet Hayatınızı Kolaylaştıran Özellikler
                 </h2>
                 <p data-tr="Modern tasarım, reklamsız akıcı arayüz ve dini hassasiyetlerle geliştirildi."
-                   data-en="Crafted with minimalist design, distraction-free layout, and spiritual precision.">
+                   data-en="Crafted with minimalist design, distraction-free layout, and spiritual precision."
+                   data-ar="تصميم عصري بسيط وخالٍ من المشتتات مع مراعاة كاملة للضوابط الدينية.">
                     Modern tasarım, reklamsız akıcı arayüz ve dini hassasiyetlerle geliştirildi.
                 </p>
             </div>
@@ -710,9 +762,10 @@
                     <div class="feature-icon">
                         <i data-lucide="clock" style="width: 28px; height: 28px;"></i>
                     </div>
-                    <h3 data-tr="Diyanet Uyumlu Vakitler" data-en="Official Prayer Times">Diyanet Uyumlu Vakitler</h3>
+                    <h3 data-tr="Diyanet Uyumlu Vakitler" data-en="Official Prayer Times" data-ar="أوقات صلاة دقيقة">Diyanet Uyumlu Vakitler</h3>
                     <p data-tr="Konumunuza göre milisaniye hassasiyetinde hesaplanan doğru vakitler. İnternetsiz çalışma ve 30 günlük hafıza desteği."
-                       data-en="Precise prayer times based on your location. Works offline with 30-day cached schedule.">
+                       data-en="Precise prayer times based on your location. Works offline with 30-day cached schedule."
+                       data-ar="حساب دقيق لمواقيت الصلاة وفقاً لموقعكم الجغرافي، مع إمكانية العمل بدون إنترنت وجدول محفوظ لـ 30 يوماً.">
                         Konumunuza göre milisaniye hassasiyetinde hesaplanan doğru vakitler. İnternetsiz çalışma ve 30 günlük hafıza desteği.
                     </p>
                 </div>
@@ -722,9 +775,10 @@
                     <div class="feature-icon">
                         <i data-lucide="volume-2" style="width: 28px; height: 28px;"></i>
                     </div>
-                    <h3 data-tr="Özel Ezan Bildirimleri" data-en="Custom Adhan Alerts">Özel Ezan Bildirimleri</h3>
+                    <h3 data-tr="Özel Ezan Bildirimleri" data-en="Custom Adhan Alerts" data-ar="تنبيهات الأذان المخصصة">Özel Ezan Bildirimleri</h3>
                     <p data-tr="Farklı makamlarda ezan sesleri ve vakit öncesi hatırlatmalar ile hiçbir ibadeti kaçırmayın."
-                       data-en="Never miss a prayer with authentic Adhan audio alerts and configurable pre-prayer reminders.">
+                       data-en="Never miss a prayer with authentic Adhan audio alerts and configurable pre-prayer reminders."
+                       data-ar="لا تفوت أي صلاة بفضل أصوات الأذان العذبة بمقامات مختلفة وتنبيهات التذكير قبل حلول الوقت.">
                         Farklı makamlarda ezan sesleri ve vakit öncesi hatırlatmalar ile hiçbir ibadeti kaçırmayın.
                     </p>
                 </div>
@@ -734,9 +788,10 @@
                     <div class="feature-icon">
                         <i data-lucide="compass" style="width: 28px; height: 28px;"></i>
                     </div>
-                    <h3 data-tr="Hassas Kıble Pusulası" data-en="Accurate Qibla Compass">Hassas Kıble Pusulası</h3>
+                    <h3 data-tr="Hassas Kıble Pusulası" data-en="Accurate Qibla Compass" data-ar="بوصلة القبلة الدقيقة">Hassas Kıble Pusulası</h3>
                     <p data-tr="Manyetik sensör desteğiyle dünyanın neresinde olursanız olun Kabe yönünü kolayca ve şaşmadan bulun."
-                       data-en="Find the exact Kaaba direction worldwide with gyro and compass sensor calibration.">
+                       data-en="Find the exact Kaaba direction worldwide with gyro and compass sensor calibration."
+                       data-ar="حدد اتجاه الكعبة المشرفة بدقة فائقة أينما كنت حول العالم عبر مستشعرات الاتجاه المتقدمة.">
                         Manyetik sensör desteğiyle dünyanın neresinde olursanız olun Kabe yönünü kolayca ve şaşmadan bulun.
                     </p>
                 </div>
@@ -746,9 +801,10 @@
                     <div class="feature-icon">
                         <i data-lucide="book-open" style="width: 28px; height: 28px;"></i>
                     </div>
-                    <h3 data-tr="Kur'an-ı Kerim & Sesli Tilavet" data-en="Holy Quran & Audio">Kur'an-ı Kerim & Sesli Tilavet</h3>
+                    <h3 data-tr="Kur'an-ı Kerim & Sesli Tilavet" data-en="Holy Quran & Audio" data-ar="القرآن الكريم وتلاوات صوتية">Kur'an-ı Kerim & Sesli Tilavet</h3>
                     <p data-tr="Arapça metin, Türkçe meal ve dünyaca ünlü kârilerden ayet ayet sesli tilavet dinleme imkanı."
-                       data-en="Full Quran with translation, Arabic calligraphy, transliteration, and verse-by-verse recitations.">
+                       data-en="Full Quran with translation, Arabic calligraphy, transliteration, and verse-by-verse recitations."
+                       data-ar="المصحف الشريف بالرسم العثماني مع الترجمة وتلاوات عطرة آية بآية بأصوات نخبة من أشهر القراء.">
                         Arapça metin, Türkçe meal ve dünyaca ünlü kârilerden ayet ayet sesli tilavet dinleme imkanı.
                     </p>
                 </div>
@@ -758,9 +814,10 @@
                     <div class="feature-icon">
                         <i data-lucide="sparkle" style="width: 28px; height: 28px;"></i>
                     </div>
-                    <h3 data-tr="Akıllı Zikirmatik & Hatim" data-en="Smart Tasbih & Khatm">Akıllı Zikirmatik & Hatim</h3>
+                    <h3 data-tr="Akıllı Zikirmatik & Hatim" data-en="Smart Tasbih & Khatm" data-ar="المسبحة الذكية والختمات">Akıllı Zikirmatik & Hatim</h3>
                     <p data-tr="Titreşimli gerçekçi zikir sayacı, Esmaü'l Hüsna, günlük dualar ve toplulukla online hatim paylaşımı."
-                       data-en="Realistic haptic feedback counter, 99 Names of Allah, daily supplications and community Khatm.">
+                       data-en="Realistic haptic feedback counter, 99 Names of Allah, daily supplications and community Khatm."
+                       data-ar="مسبحة إلكترونية بتأثير اهتزازي واقعي، أسماء الله الحسنى، أدعية يومية، ومشاركة الختمات الجماعية.">
                         Titreşimli gerçekçi zikir sayacı, Esmaü'l Hüsna, günlük dualar ve toplulukla online hatim paylaşımı.
                     </p>
                 </div>
@@ -770,9 +827,10 @@
                     <div class="feature-icon">
                         <i data-lucide="radio" style="width: 28px; height: 28px;"></i>
                     </div>
-                    <h3 data-tr="Diyanet Radyo & İmsakiye" data-en="Live Radio & Ramadan">Diyanet Radyo & İmsakiye</h3>
+                    <h3 data-tr="Diyanet Radyo & İmsakiye" data-en="Live Radio & Ramadan" data-ar="إذاعة القرآن والإمساكية">Diyanet Radyo & İmsakiye</h3>
                     <p data-tr="Diyanet Kur'an Radyosu canlı yayını ve Ramazan ayı boyunca sahur/iftar vakitlerini gösteren tam imsakiye."
-                       data-en="Live 24/7 Diyanet Quran Radio streaming and full Ramadan timetable with countdown timers.">
+                       data-en="Live 24/7 Diyanet Quran Radio streaming and full Ramadan timetable with countdown timers."
+                       data-ar="بث مباشر على مدار الساعة لإذاعة القرآن الكريم وإمساكية متكاملة لشهر رمضان المبارك مع عداد الإفطار والسحور.">
                         Diyanet Kur'an Radyosu canlı yayını ve Ramazan ayı boyunca sahur/iftar vakitlerini gösteren tam imsakiye.
                     </p>
                 </div>
@@ -781,9 +839,10 @@
 
         <!-- CTA Banner -->
         <section class="cta-banner">
-            <h2 data-tr="Mihrap'ı Bugün İndirin" data-en="Download Mihrap Today">Mihrap'ı Bugün İndirin</h2>
+            <h2 data-tr="Mihrap'ı Bugün İndirin" data-en="Download Mihrap Today" data-ar="حمّل تطبيق محراب اليوم">Mihrap'ı Bugün İndirin</h2>
             <p data-tr="İbadetlerinizi kolaylaştıran, göz yormayan ve tamamen ücretsiz deneyimi hemen yaşayın."
-               data-en="Experience a peaceful, ad-free and distraction-free Islamic app crafted for daily worship.">
+               data-en="Experience a peaceful, ad-free and distraction-free Islamic app crafted for daily worship."
+               data-ar="عش تجربة إيمانية هادئة ومريحة للعين، صُممت خصيصاً لتيسير عباداتكم اليومية.">
                 İbadetlerinizi kolaylaştıran, göz yormayan ve tamamen ücretsiz deneyimi hemen yaşayın.
             </p>
             <a href="https://apps.apple.com/tr/app/mihrap-ezan-vakitleri/id6757357618" target="_blank" class="btn-apple">
@@ -791,7 +850,7 @@
                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.65 1.35-.58.65-1.08 1.72-.94 2.74 1.01.08 2.05-.49 2.67-1.24Z"/>
                 </svg>
                 <div class="btn-apple-text">
-                    <small data-tr="iOS için İndir" data-en="Download for iOS">iOS için İndir</small>
+                    <small data-tr="iOS için İndir" data-en="Download for iOS" data-ar="تنزيل لنظام iOS">iOS için İndir</small>
                     <span>App Store</span>
                 </div>
             </a>
@@ -801,22 +860,48 @@
     <!-- Footer -->
     <footer>
         <div class="footer-links">
-            <a href="gizlilik-politikasi.html" id="footerPrivacyLink" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Gizlilik Politikası</a>
-            <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" data-tr="Kullanım Koşulları (EULA)" data-en="Terms of Use (EULA)">Kullanım Koşulları (EULA)</a>
-            <a href="mailto:bavagir.dev@gmail.com" data-tr="İletişim" data-en="Contact">İletişim</a>
+            <a href="gizlilik-politikasi.html" id="footerPrivacyLink" data-tr="Gizlilik Politikası" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Gizlilik Politikası</a>
+            <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" data-tr="Kullanım Koşulları (EULA)" data-en="Terms of Use (EULA)" data-ar="شروط الاستخدام (EULA)">Kullanım Koşulları (EULA)</a>
+            <a href="mailto:bavagir.dev@gmail.com" data-tr="İletişim" data-en="Contact" data-ar="اتصل بنا">İletişim</a>
         </div>
-        <p>© 2026 Mihrap. Tüm hakları saklıdır.</p>
+        <p data-tr="© 2026 Mihrap. Tüm hakları saklıdır." data-en="© 2026 Mihrap. All rights reserved." data-ar="© ٢٠٢٦ محراب. جميع الحقوق محفوظة.">© 2026 Mihrap. Tüm hakları saklıdır.</p>
     </footer>
 
     <script>
         // Init Lucide Icons
         lucide.createIcons();
 
+        // Meta titles & descriptions for languages
+        const metaTranslations = {
+            tr: {
+                title: "Mihrap – Ezan Vakitleri, Kıble Pusulası & Kur'an-ı Kerim",
+                desc: "Mihrap ile Diyanet uyumlu ezan vakitleri, hassas kıble pusulası, sesli Kur'an-ı Kerim, zikirmatik ve dini günler parmaklarınızın ucunda."
+            },
+            en: {
+                title: "Mihrap – Prayer Times, Qibla Compass & Holy Quran",
+                desc: "Accurate prayer times, precision Qibla compass, audio Holy Quran recitations, digital tasbih, and Islamic calendar with Mihrap."
+            },
+            ar: {
+                title: "محراب – أوقات الصلاة، اتجاه القبلة والقرآن الكريم",
+                desc: "تطبيق محراب: أوقات الصلاة الدقيقة، اتجاه القبلة، القرآن الكريم المرتل، المسبحة الإلكترونية والمناسبات الدينية بتصميم عصري وأنيق."
+            }
+        };
+
         // Language Switcher Function
         function setLang(lang) {
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
             });
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+            // Update title and meta description
+            if (metaTranslations[lang]) {
+                document.title = metaTranslations[lang].title;
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) metaDesc.setAttribute('content', metaTranslations[lang].desc);
+            }
 
             document.querySelectorAll('[data-tr]').forEach(el => {
                 const text = el.getAttribute('data-' + lang);
@@ -832,14 +917,39 @@
             // Update privacy policy links
             const privacyLink = document.getElementById('privacyLink');
             const footerPrivacyLink = document.getElementById('footerPrivacyLink');
+            let privacyHref = 'gizlilik-politikasi.html';
             if (lang === 'en') {
-                privacyLink.href = 'privacy-policy.html';
-                footerPrivacyLink.href = 'privacy-policy.html';
-            } else {
-                privacyLink.href = 'gizlilik-politikasi.html';
-                footerPrivacyLink.href = 'gizlilik-politikasi.html';
+                privacyHref = 'privacy-policy.html';
+            } else if (lang === 'ar') {
+                privacyHref = 'privacy-policy-ar.html';
             }
+            if (privacyLink) privacyLink.href = privacyHref;
+            if (footerPrivacyLink) footerPrivacyLink.href = privacyHref;
+
+            // Re-render icons if needed
+            lucide.createIcons();
+
+            try {
+                localStorage.setItem('mihrap_site_lang', lang);
+            } catch (e) {}
         }
+
+        // Initialize language from localStorage or browser preferences
+        (function() {
+            try {
+                const saved = localStorage.getItem('mihrap_site_lang');
+                if (saved && ['tr', 'en', 'ar'].includes(saved)) {
+                    setLang(saved);
+                    return;
+                }
+            } catch(e) {}
+            const userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+            if (userLang.startsWith('ar')) {
+                setLang('ar');
+            } else if (userLang.startsWith('en')) {
+                setLang('en');
+            }
+        })();
     </script>
 </body>
 </html>
